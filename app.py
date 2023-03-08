@@ -7,10 +7,14 @@ from chatterbot.trainers import ListTrainer
 app = Flask(__name__)
 
 
-
+# Declare chatbot
 bott = ChatBot("Slangy Chatbot")
+
+# Train on CommonSenseQA
 trainer3 = ListTrainer(bott)
 trainer3.train(commonsense)
+
+# Simple conversation
 conversation1 = [
     "Hello",
     "Hi, there!",
