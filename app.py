@@ -1,4 +1,5 @@
-from vardata import *
+# from vardata import *
+from search import *
 from flask import Flask, render_template, request
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
@@ -11,8 +12,8 @@ app = Flask(__name__)
 bott = ChatBot("Slangy Chatbot")
 
 # Train on CommonSenseQA
-trainer3 = ListTrainer(bott)
-trainer3.train(commonsense)
+# trainer3 = ListTrainer(bott)
+# trainer3.train(commonsense)
 
 # Simple conversation
 conversation1 = [
@@ -31,7 +32,7 @@ trainer2 = ListTrainer(bott)
 trainer2.train(conversation1)
 
 trainer = ChatterBotCorpusTrainer(bott)
-trainer.train("chatterbot.corpus.english")
+# trainer.train("chatterbot.corpus.english")
 # trainer2.train(["Thank You","You're welcome"])
 
 
@@ -43,7 +44,18 @@ def home():
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    return str(bott.get_response(userText))
+    if "what is" in userText.lower():
+        return str(search(userText))
+    elif "what's" in userText.lower():
+        return str(search(userText))
+    elif "near me" in userText.lower():
+        return str(search(userText))
+    elif "who is" in userText.lower():
+        return str(search(userText))
+    elif "who was" in userText.lower():
+        return str(search(userText))
+    else:
+        return str(bott.get_response(userText)).title()
 
 
 if __name__ == "__main__":
