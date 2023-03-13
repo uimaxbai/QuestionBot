@@ -4,8 +4,13 @@ from flask import Flask, render_template, request
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.trainers import ListTrainer
+from semantic3.units import ConversionService
+from semantic3.solver import MathService
 
 app = Flask(__name__)
+service1 = MathService()
+service = ConversionService()
+service2 = NumberService()
 
 
 # Declare chatbot
@@ -44,18 +49,28 @@ def home():
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    if "what is" in userText.lower():
-        return str(search(userText))
-    elif "what's" in userText.lower():
-        return str(search(userText))
-    elif "near me" in userText.lower():
-        return str(search(userText))
-    elif "who is" in userText.lower():
-        return str(search(userText))
-    elif "who was" in userText.lower():
-        return str(search(userText))
-    else:
-        return str(bott.get_response(userText)).title()
+    try:
+        convertedUnits = service.convert("Seven and a half kilograms to pounds")
+        UnitsMsg = service2.longestNumber(convertedUnits) + """ -> """ + String(convertedUnits)
+        return UnitsMsg
+    except:
+        try:
+            mathSolved = service1.parseEquation(userText)
+            NumMsg = service2.longestNumber(mathSolved) + """ -> """ + String(mathSolved)
+            return NumMsg
+        except:
+            if "what is" in userText.lower():
+                return str(search(userText))
+            elif "what's" in userText.lower():
+                return str(search(userText))
+            elif "near me" in userText.lower():
+                return str(search(userText))
+            elif "who is" in userText.lower():
+                return str(search(userText))
+            elif "who was" in userText.lower():
+                return str(search(userText))
+            else:
+                return str(bott.get_response(userText)).title()
 
 
 if __name__ == "__main__":
