@@ -51,13 +51,13 @@ def home():
 def get_bot_response():
     userText = request.args.get('msg')
     try:
-        convertedUnits = service.convert("Seven and a half kilograms to pounds")
-        UnitsMsg = service2.longestNumber(convertedUnits) + """ -> """ + String(convertedUnits)
+        convertedUnits = service.convert(str(userText))
+        UnitsMsg = str(service2.longestNumber(convertedUnits)) + """ -> """ + str(convertedUnits)
         return UnitsMsg
     except:
         try:
-            mathSolved = service1.parseEquation(userText)
-            NumMsg = service2.longestNumber(mathSolved) + """ -> """ + String(mathSolved)
+            mathSolved = service1.parseEquation(str(userText))
+            NumMsg = str(service2.longestNumber(mathSolved)) + """ -> """ + str(mathSolved)
             return NumMsg
         except:
             if "what is" in userText.lower():
