@@ -6,6 +6,7 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.trainers import ListTrainer
 from semantic3.units import ConversionService
 from semantic3.solver import MathService
+from semantic3.numbers import NumberService
 
 app = Flask(__name__)
 service1 = MathService()
