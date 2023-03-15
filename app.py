@@ -1,4 +1,4 @@
-# from vardata import *
+# Import modules
 from search import *
 from flask import Flask, render_template, request
 from chatterbot import ChatBot
