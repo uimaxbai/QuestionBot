@@ -7,6 +7,7 @@ from chatterbot.trainers import ListTrainer
 from semantic3.units import ConversionService
 from semantic3.solver import MathService
 from semantic3.numbers import NumberService
+from mathparse import mathparse
 
 app = Flask(__name__)
 service1 = MathService()
@@ -52,13 +53,12 @@ def get_bot_response():
     userText = request.args.get('msg')
     try:
         convertedUnits = service.convert(str(userText))
-        UnitsMsg = str(service2.longestNumber(convertedUnits)) + """ -> """ + str(convertedUnits)
+        UnitsMsg = str(service2.longestNumber(userText)) + str(service.extractUnits(userText)[0]) + """ -> """ + str(convertedUnits)
         return UnitsMsg
     except:
         try:
-            mathSolved = service1.parseEquation(str(userText))
-            NumMsg = str(service2.longestNumber(mathSolved)) + """ -> """ + str(mathSolved)
-            return NumMsg
+            math = mathparse.parse(userText, language='ENG')
+            return "Maths: " + str(math)
         except:
             if "what is" in userText.lower():
                 return str(search(userText))
