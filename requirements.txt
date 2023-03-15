@@ -145,3 +145,4 @@ yapf
 yarl
 Gunicorn
 semantic3
+rottentomatoes-python
