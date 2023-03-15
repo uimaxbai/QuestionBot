@@ -3,6 +3,7 @@ from semantic3.units import ConversionService
 from semantic3.solver import MathService
 from semantic3.numbers import NumberService
 from mathparse import mathparse
+import rottentomatoes as rt
 
 service1 = MathService()
 service2 = NumberService()
@@ -22,28 +23,10 @@ print(service.convert("Seven and a half pounds per square foot to kilograms per 
 # print(service.convert("How is your day"))
 # (16.534, 'lbs')
 
-def get_bot_response():
-    userText = input("> ")
-    try:
-        convertedUnits = service.convert(str(userText))
-        UnitsMsg = str(service2.longestNumber(userText)) + str(service.extractUnits(userText)[0]) + """ -> """ + str(convertedUnits)
-        return UnitsMsg
-    except:
-        try:
-            math = mathparse.parse(userText, language='ENG')
-            return "Maths: " + str(math)
-        except:
-            if "what is" in userText.lower():
-                return str(search(userText))
-            elif "what's" in userText.lower():
-                return str(search(userText))
-            elif "near me" in userText.lower():
-                return str(search(userText))
-            elif "who is" in userText.lower():
-                return str(search(userText))
-            elif "who was" in userText.lower():
-                return str(search(userText))
-            else:
-                return str(bott.get_response(userText)).title()
+
             
-print(get_bot_response())
+
+
+userText=input()
+rtlk = rt.tomatometer(userText)
+print(str(rt.movie_title(userText)) + " ("+rt.rating('everything everywhere all at once')+", "+rt.year_released(userText)+")"+": Tomatometer - " + str(rtlk['value']) + "% "  + "Audience - " + str(round((float(rt.audience_score(userText)['averageRating']) / 5) * 100, 0)))
