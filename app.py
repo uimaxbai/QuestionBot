@@ -56,7 +56,7 @@ def get_bot_response():
         try:
             rtlk = rt.tomatometer(userText)
             return str(rt.movie_title(userText)) + " ("+rt.rating('everything everywhere all at once')+", "+rt.year_released(userText)+")"+": Tomatometer - " + str(rtlk['value']) + "% "  + "Audience - " + str(int(round((float(rt.audience_score(userText)['averageRating']) / 5) * 100, 0))) + "%"
-        except LookupError:
+        except:
             try:
                 convertedUnits = service.convert(str(userText))
                 UnitsMsg = str(service2.longestNumber(userText)) + str(service.extractUnits(userText)[0]) + """ -> """ + str(convertedUnits)
@@ -78,8 +78,6 @@ def get_bot_response():
                         return str(search(userText))
                     else:
                         return str(bott.get_response(userText)).title()
-        except:
-            return "err-rt"
     except:
         return "error"
 
