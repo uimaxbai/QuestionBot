@@ -78,8 +78,8 @@ def get_bot_response():
                         return str(search(userText))
                     else:
                         return str(bott.get_response(userText)).title()
-    except:
-        return "error"
+    except as err:
+        return "error | "+err
 
 
 if __name__ == "__main__":
