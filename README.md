@@ -15,6 +15,7 @@
 - [ ] More JS and HTML intergration
 - [ ] Instant answering
 - [ ] CLI interface and PyPI module
+- [ ] 'Did you mean...'
 ### Known Limitations
 - Cannot do maths questions without spaces in between (can fallback on Google)
 - Sometimes glitches out
